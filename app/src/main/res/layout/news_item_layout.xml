@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <!--
+    android:singleLine 设 置为 true 表示让这个 TextView 只能单行显示。
+    android:ellipsize 用于设定当文本内容超出控 件宽度时，文本的缩略方式，
+    这里指定成 end 表示在尾部进行缩略。
+    -->
+
+    <TextView
+        android:id="@+id/news_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:paddingLeft="10dp"
+        android:paddingTop="15dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="15dp"
+        android:singleLine="true"
+        android:textSize="18sp" />
+
+
+</LinearLayout>
