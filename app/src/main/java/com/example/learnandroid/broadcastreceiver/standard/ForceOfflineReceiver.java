@@ -7,7 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.WindowManager;
 
-import com.example.learnandroid.activity.LoginActivity;
+import com.example.learnandroid.activity.login.LoginActivity;
 import com.example.learnandroid.utils.ActivityCollector;
 
 public class ForceOfflineReceiver extends BroadcastReceiver {

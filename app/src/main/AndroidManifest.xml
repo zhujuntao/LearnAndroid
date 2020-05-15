@@ -16,7 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.LoginActivity"></activity>
+        <activity android:name=".activity.database.DatabaseMainActivity"></activity>
+        <activity android:name=".activity.filepersistence.SharedPreferencesActivity" />
+        <activity android:name=".activity.filepersistence.FilePersistenceActivity" />
+        <activity android:name=".activity.login.LoginActivity" />
         <activity android:name=".activity.broadcast.BroadcastMainActivity" />
         <activity android:name=".activity.news.NewsListActivity" />
         <activity android:name=".activity.news.NewsContentActivity" />
@@ -50,14 +53,11 @@
                 <action android:name="com.example.learnandroid.broadcastreceiver.standard.MY_BROADCAST" />
             </intent-filter>
         </receiver>
-
         <receiver android:name=".broadcastreceiver.standard.ForceOfflineReceiver">
-
             <intent-filter>
                 <action android:name="com.example.learnandroid.broadcastreceiver.standard.FORCE_OFFLINE" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>
