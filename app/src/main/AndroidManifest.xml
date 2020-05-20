@@ -12,6 +12,11 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission. SEND_SMS" />
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,7 +24,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.sms.SmSMainActivity"></activity>
+        <activity android:name=".activity.choosepic.ChoosePicActivity"></activity>
+        <activity android:name=".activity.sms.SmSMainActivity" />
         <activity android:name=".activity.notification.NotivicationMainActivity" />
         <activity android:name=".activity.contact.ContactMainActivity" />
         <activity android:name=".activity.database.DatabaseMainActivity" />
