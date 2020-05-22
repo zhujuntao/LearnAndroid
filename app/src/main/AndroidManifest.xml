@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission. SEND_SMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -20,7 +21,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.service.LongRunningServiceActivity"></activity>
+        <activity android:name=".activity.newwork.PullTestActivity"></activity>
+        <activity android:name=".activity.newwork.NetworkTestActivity" />
+        <activity android:name=".activity.webview.WebViewTestActivity" />
+        <activity android:name=".activity.service.LongRunningServiceActivity" />
         <activity android:name=".activity.service.ServiceTestActivity" />
         <activity android:name=".activity.thread.UpdateUiActivity" />
         <activity android:name=".activity.playaudio.PlayVideoActivity" />
@@ -78,9 +82,9 @@
 
         <service android:name=".service.MyService" />
         <service android:name=".service.MyIntentService" />
-        <service android:name=".service.LongRunningService"></service>
+        <service android:name=".service.LongRunningService" />
 
-        <receiver android:name=".activity.service.AlarmReceiver"></receiver>
+        <receiver android:name=".activity.service.AlarmReceiver" />
     </application>
 
 </manifest>
