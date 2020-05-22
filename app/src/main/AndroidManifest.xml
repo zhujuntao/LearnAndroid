@@ -20,7 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.playaudio.PlayVideoActivity"></activity>
+        <activity android:name=".activity.service.LongRunningServiceActivity"></activity>
+        <activity android:name=".activity.service.ServiceTestActivity" />
+        <activity android:name=".activity.thread.UpdateUiActivity" />
+        <activity android:name=".activity.playaudio.PlayVideoActivity" />
         <activity android:name=".activity.playaudio.PlayAudioActivity" />
         <activity android:name=".activity.choosepic.ChoosePicActivity" />
         <activity android:name=".activity.sms.SmSMainActivity" />
@@ -72,6 +75,12 @@
         <provider
             android:name=".contentprovider.DatabaseProvider"
             android:authorities="com.example.learnandroid.contentprovider" />
+
+        <service android:name=".service.MyService" />
+        <service android:name=".service.MyIntentService" />
+        <service android:name=".service.LongRunningService"></service>
+
+        <receiver android:name=".activity.service.AlarmReceiver"></receiver>
     </application>
 
 </manifest>

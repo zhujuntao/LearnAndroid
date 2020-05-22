@@ -1,0 +1,142 @@
+ 第一种，直接在客户端，一般是activity中调用startService()方法，传递一个Intent参数，将要传递的数据储存在intent中传递给Service即可，启动服务后会依次调用服务的一些生命周期的回调方法，其中在onStartCommand中执行我们想要服务执行的操作即可，在这个方法中我们可以获得客户端传递过来的Intent获得相关数据。
+
+Service相关代码：
+public class SimpleService extends Service { 
+/** * 绑定服务时才会调用 * 必须要实现的方法 * /
+@Nullable
+@Override 
+public IBinder onBind(Intent intent) { 
+return null;
+}
+/** * 我们这里执行服务启动都要做的操作 */ 
+@Override public int onStartCommand(Intent intent, int flags, int startId) {
+System.out.println("onStartCommand invoke");
+return super.onStartCommand(intent, flags, startId);
+}
+/** * 服务销毁时的回调 */ 
+@Override public void onDestroy() {
+System.out.println("onDestroy invoke");
+super.onDestroy();
+}
+}
+客户端主要代码：
+Intent it=new Intent(this, SimpleService.class);
+startService(it);
+第二种，通过绑定服务的方式可以在客户端获得对应Service的引用，从而完成与Service的交互。主要过程如下图所示：
+首先，在继承Service类的自定义服务类中新建一个继承自IBinder的内部类，在IBinder中获得myService的引用；
+在服务的onBinder()方法中将service中的Ibinder对象处入（这个方法会在绑定服务成功的时候被调用，客户端可以通过这个方法获得IBinder对象，进而获得Service的引用）；
+在客户端声明一个 ServiceConnection对象，在ServiceConnection对象的onServiceConnected（）（这个方法就是在绑定服务成功的时候调用的）可以获得服务中的IBinder对象;
+通过获得的IBinder对象获取Service引用，可以获取Service中的数据和方法。
+
+Service相关代码：
+public class LocalService extends Service{ 
+private LocalBinder binder = new LocalBinder();
+/** * 创建Binder对象，返回给客户端即Activity使用，提供数据交换的接口 */ 
+public class LocalBinder extends Binder { 
+// 声明一个方法，getService。（提供给客户端调用）
+LocalService getService() { 
+// 返回当前对象LocalService,这样我们就可在客户端端调用Service的公共方法了
+return LocalService.this;
+}
+}
+/** * 把Binder类返回给客户端 */
+@Nullable
+@Override
+public IBinder onBind(Intent intent) { 
+return binder;
+}
+@Override
+public void onCreate() {
+super.onCreate();
+} 
+/** * 解除绑定时调用 * @return */ 
+@Override 
+public boolean onUnbind(Intent intent) {
+return super.onUnbind(intent);
+}
+@Override 
+public void onDestroy() {
+super.onDestroy();
+}
+}
+客户端主要代码：
+private ServiceConnection conn;
+private LocalService mService;
+Intent intent = new Intent(this, LocalService.class);
+bindService(intent, conn, Service.BIND_AUTO_CREATE);
+conn = new ServiceConnection() { /** * 与服务器端交互的接口方法 绑定服务的时候被回调，在这个方法获取绑定Service传递过来的IBinder对象， * 通过这个IBinder对象，实现宿主和Service的交互。 */
+@Override 
+public void onServiceConnected(ComponentName name, IBinder service) {
+Log.d(TAG, "绑定成功调用：onServiceConnected");
+// 获取Binder 
+LocalService.LocalBinder binder = (LocalService.LocalBinder) service;
+// 获取服务对象
+mService = binder.getService();
+} 
+/** * 当取消绑定的时候被回调。但正常情况下是不被调用的，它的调用时机是当Service服务被意外销毁时， * 例如内存的资源不足时这个方法才被自动调用。 */ 
+@Override 
+public void onServiceDisconnected(ComponentName name) {
+mService=null;
+}
+};
+第三种，通过绑定服务的方式应用Messenger可以实现不同进程间的服务与客户端通信，此方式的实现过程如下：
+首先，在Service中新建一个Handler处理客户端传过来的消息，进行对应的消息处理；
+将Handler的对象传入新创建的Messenger对象中，建立Messenger与handler之间的联系；
+通过Messenger.getBinder()获得IBInder对象，并通过Service的onBinder（）方法将IBinder的对象传递给客户端（这里建立了Messenger和IBinder对象之间的联系或者说是绑定关系）；
+在客户端声明一个 ServiceConnection对象，在ServiceConnection对象的onServiceConnected（），这个回调方法传到客户端一个IBinder对象，通过这个对象我们就和一获得与其联系的Messenger；
+最后我们可以把要传递的数据和指令保存在Message对象中，调用Messenger.send(msg)方法将消息发送出去，因为我们的服务的Handler和这里的额Messenger是相互关联的，因此，服务中的Handler可以收到并处理这些消息。
+此外，客户端也可以声明一个Handler对象用来处理服务传过来的消息
+
+Service相关代码：
+public class MessengerService extends Service { 
+
+
+/** * 用于接收从客户端传递过来的数据 */
+class IncomingHandler extends Handler
+{
+@Override 
+public void handleMessage(Message msg) { 
+switch (msg.what) { 
+
+}
+}
+} 
+/** * 创建Messenger并传入Handler实例对象 */ 
+final Messenger mMessenger = new Messenger(new IncomingHandler()); 
+/** * 当绑定Service时,该方法被调用,将通过mMessenger返回一个实现 * IBinder接口的实例对象 */
+@Override
+public IBinder onBind(Intent intent) {
+Log.i(TAG, "Service is invoke onBind"); 
+return mMessenger.getBinder();
+}
+}
+客户端主要代码：
+/** * 与服务端交互的Messenger */ 
+Messenger mService = null; 
+boolean mBound;
+bindService(new Intent(ActivityMessenger.this, MessengerService.class), mConnection, Context.BIND_AUTO_CREATE);
+/** * 实现与服务端链接的对象 */ 
+private ServiceConnection mConnection = new ServiceConnection() { 
+public void onServiceConnected(ComponentName className, IBinder service) { /** * 通过服务端传递的IBinder对象,创建相应的Messenger * 通过该Messenger对象与服务端进行交互 */ 
+mService = new Messenger(service);
+mBound = true;
+}
+public void onServiceDisconnected(ComponentName className) {
+mService = null;
+mBound = false;
+}
+};
+public void sayHello(View v) {
+if (!mBound) return; 
+// 创建与服务交互的消息实体Message 
+Message msg = Message.obtain(null, MessengerService.MSG_SAY_HELLO, 0, 0);
+try {
+//发送消息
+mService.send(msg);
+} catch (RemoteException e) {
+e.printStackTrace();
+}
+}
+————————————————
+版权声明：本文为CSDN博主「一禅小和尚LXY」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_33718648/article/details/79880105
