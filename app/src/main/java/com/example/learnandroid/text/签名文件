@@ -1,0 +1,51 @@
+Key store path : 签名文件路径
+Password : 签名密码   123456
+Confirm : 确认密码
+Alias : 别名  learn    密码123456
+Validity ( years ) : 有限期 （年）
+First and Last Name : 全名
+Organizational Unit : 组织单位
+Organization : 组织
+City or Locality : 城市或地方
+State or Province : 州或省
+Country Code(XX) : 国家代码
+
+
+
+别名: learn
+创建日期: 2020-5-25
+条目类型: PrivateKeyEntry
+证书链长度: 1
+证书[1]:
+所有者: CN=android, L=bj, ST=bj
+发布者: CN=android, L=bj, ST=bj
+序列号: 242def4e
+有效期为 Mon May 25 17:21:27 CST 2020 至 Fri May 19 17:21:27 CST 2045
+证书指纹:
+	 MD5:  1C:5A:18:8B:91:87:90:E9:07:CB:E6:25:9D:A9:AF:2B
+	 SHA1: 7F:D2:14:FD:CF:4C:B3:9F:7C:C8:87:3A:FB:09:2F:7C:2A:0F:72:81
+	 SHA256: 0A:19:1F:7D:A6:55:5E:95:4A:2B:F3:42:FA:03:0B:56:E0:A8:55:14:24:D0:6B:83:95:3B:DD:2C:BB:8A:4D:A8
+签名算法名称: SHA256withRSA
+主体公共密钥算法: 2048 位 RSA 密钥
+版本: 3
+
+扩展:
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: ED 61 A0 9D 56 1D B1 41   32 FF AC B7 6D 45 63 10  .a..V..A2...mEc.
+0010: 61 42 30 89                                        aB0.
+]
+]
+
+
+
+*******************************************
+*******************************************
+
+
+
+Warning:
+JKS 密钥库使用专用格式。建议使用 "keytool -importkeystore -srckeystore learn.jks -destkeystore learn.jks -deststoretype pkcs12" 迁移到行业标准格式 PKCS12。
+songke:AndroidLearnOne pactera$

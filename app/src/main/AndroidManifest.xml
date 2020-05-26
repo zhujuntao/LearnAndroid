@@ -5,6 +5,7 @@
     访问 http://developer.android.com/reference/android/Manifest.permission.html
     可以查看 Android 系统所有可声明的权限。
     -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -13,6 +14,8 @@
     <uses-permission android:name="android.permission. SEND_SMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
     <application
         android:allowBackup="true"
@@ -21,7 +24,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.newwork.PullTestActivity"></activity>
+        <activity android:name=".activity.Location.LocationTestActivity"></activity>
+        <activity android:name=".activity.newwork.PullTestActivity" />
         <activity android:name=".activity.newwork.NetworkTestActivity" />
         <activity android:name=".activity.webview.WebViewTestActivity" />
         <activity android:name=".activity.service.LongRunningServiceActivity" />
