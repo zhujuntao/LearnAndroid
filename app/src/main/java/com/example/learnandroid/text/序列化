@@ -1,0 +1,77 @@
+Serializable 是序列化的意思，表示将一个对象转换成可存储或可传输的状态。序列化后 的对象可以在网络上进行传输，
+也可以存储到本地。比如说有一个 Person 类，其中包含了 name 和 age 这两个字段，想要将它序列化就可以 这样写:
+    public class Person implements Serializable{
+  private String name;
+        private int age;
+        public String getName() {
+            return name;
+}
+public void setName(String name) { this.name = name;
+}
+        public int getAge() {
+            return age;
+}
+public void setAge(int age) { this.age = age;
+} }
+
+其中 get、set 方法都是用于赋值和读取字段数据的，最重要的部分是在第一行。这里让 Person 类去实现了 Serializable 接口，
+这样所有的 Person 对象就都是可序列化的了。接下来在 FirstActivity 中的写法非常简单:
+Person person = new Person();
+person.setName("Tom");
+person.setAge(20);
+Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
+ intent.putExtra("person_data", person);
+    startActivity(intent);
+可以看到，这里我们创建了一个 Person 的实例，然后就直接将它传入到 putExtra()方法 中了。
+由于 Person 类实现了 Serializable 接口，所以才可以这样写。
+接下来在 SecondActivity 中获取这个对象也很简单，写法如下:
+Person person = (Person) getIntent().getSerializableExtra("person_data");
+这里调用了 getSerializableExtra()方法来获取通过参数传递过来的序列化对象，接着再将 它向下转型成 Person 对象，
+这样我们就成功实现了使用 Intent 来传递对象的功能了。
+
+Parcelable 方式
+除了 Serializable 之外，使用 Parcelable 也可以实现相同的效果，不过不同于将对象进行 序列化，
+Parcelable 方式的实现原理是将一个完整的对象进行分解，而分解后的每一部分都 是 Intent 所支持的数据类型，
+这样也就实现传递对象的功能了。
+下面我们来看一下 Parcelable 的实现方式，修改 Person 中的代码，如下所示:
+ public class Person implements Parcelable {
+        private String name;
+        private int age;
+......
+        @Override
+        public int describeContents() {
+return 0; }
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+dest.writeString(name); // 写出name
+dest.writeInt(age); // 写出age }
+public static final Parcelable.Creator<Person> CREATOR = new Parcelable. Creator<Person>() {
+            @Override
+            public Person createFromParcel(Parcel source) {
+Person person = new Person();
+person.name = source.readString(); // 读取name person.age = source.readInt(); // 读取age return person;
+}
+            @Override
+            public Person[] newArray(int size) {
+                return new Person[size];
+            }
+}; }
+Parcelable 的实现方式要稍微复杂一些。可以看到，首先我们让 Person 类去实现了 Parcelable 接口，
+这样就必须重写 describeContents()和 writeToParcel()这两个方法。其中 describeContents()方法直接返回 0 就可以了，
+而 writeToParcel()方法中我们需要调用 Parcel 的 writeXxx()方法将 Person 类中的字段一一写出。注意字符串型数据就调用
+writeString()方 法，整型数据就调用 writeInt()方法，以此类推。
+除此之外，我们还必须在 Person 类中提供一个名为 CREATOR 的常量，这里创建了 Parcelable.Creator 接口的一个实现，
+并将泛型指定为 Person。接着需要重写 createFromParcel() 和 newArray()这两个方法，在 createFromParcel()方法中我们要去读取刚才写出的
+ name 和 age 字段，并创建一个 Person 对象进行返回，其中 name 和 age 都是调用 Parcel 的 readXxx()方法 读取到的，
+ 注意这里读取的顺序一定要和刚才写出的顺序完全相同。而 newArray()方法中的 实现就简单多了，只需要 new 出一个 Person 数组，
+ 并使用方法中传入的 size 作为数组大小 就可以了。接下来在 FirstActivity 中我们仍然可以使用相同的代码来传递 Person 对象，
+ 只不过在 SecondActivity 中获取对象的时候需要稍加改动，如下所示:
+Person person = (Person) getIntent().getParcelableExtra("person_data");
+注意这里不再是调用 getSerializableExtra()方法，而是调用 getParcelableExtra()方法来获
+取传递过来的对象了，其他的地方都完全相同。
+这样我们就把使用 Intent 来传递对象的两种实现方式都学习完了，对比一下，Serializable 的方式较为简单，
+但由于会把整个对象进行序列化，因此效率方面会比 Parcelable 方式低一 些，
+所以在通常情况下还是更加推荐使用 Parcelable 的方式来实现 Intent 传递对象的功能。
+
+
+
