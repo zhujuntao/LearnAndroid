@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.learnandroid">
+    package="com.test.learn">
     <!--
     访问 http://developer.android.com/reference/android/Manifest.permission.html
     可以查看 Android 系统所有可声明的权限。
@@ -24,39 +24,39 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name=".DemoApplication"
+        android:name="com.test.learn.DemoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.sensor.CompassTestActivity"></activity>
-        <activity android:name=".activity.sensor.AccelerometerSensoActivity" />
-        <activity android:name=".activity.sensor.LightSensorActivity" />
-        <activity android:name=".activity.Location.BDMapTestActivity" />
-        <activity android:name=".activity.Location.LocationTestActivity" />
-        <activity android:name=".activity.newwork.PullTestActivity" />
-        <activity android:name=".activity.newwork.NetworkTestActivity" />
-        <activity android:name=".activity.webview.WebViewTestActivity" />
-        <activity android:name=".activity.service.LongRunningServiceActivity" />
-        <activity android:name=".activity.service.ServiceTestActivity" />
-        <activity android:name=".activity.thread.UpdateUiActivity" />
-        <activity android:name=".activity.playaudio.PlayVideoActivity" />
-        <activity android:name=".activity.playaudio.PlayAudioActivity" />
-        <activity android:name=".activity.choosepic.ChoosePicActivity" />
-        <activity android:name=".activity.sms.SmSMainActivity" />
-        <activity android:name=".activity.notification.NotivicationMainActivity" />
-        <activity android:name=".activity.contact.ContactMainActivity" />
-        <activity android:name=".activity.database.DatabaseMainActivity" />
-        <activity android:name=".activity.filepersistence.SharedPreferencesActivity" />
-        <activity android:name=".activity.filepersistence.FilePersistenceActivity" />
-        <activity android:name=".activity.login.LoginActivity" />
-        <activity android:name=".activity.broadcast.BroadcastMainActivity" />
-        <activity android:name=".activity.news.NewsListActivity" />
-        <activity android:name=".activity.news.NewsContentActivity" />
-        <activity android:name=".activity.chat.ChatActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.test.learn.activity.sensor.CompassTestActivity"></activity>
+        <activity android:name="com.test.learn.activity.sensor.AccelerometerSensoActivity" />
+        <activity android:name="com.test.learn.activity.sensor.LightSensorActivity" />
+        <activity android:name="com.test.learn.activity.Location.BDMapTestActivity" />
+        <activity android:name="com.test.learn.activity.Location.LocationTestActivity" />
+        <activity android:name="com.test.learn.activity.newwork.PullTestActivity" />
+        <activity android:name="com.test.learn.activity.newwork.NetworkTestActivity" />
+        <activity android:name="com.test.learn.activity.webview.WebViewTestActivity" />
+        <activity android:name="com.test.learn.activity.service.LongRunningServiceActivity" />
+        <activity android:name="com.test.learn.activity.service.ServiceTestActivity" />
+        <activity android:name="com.test.learn.activity.thread.UpdateUiActivity" />
+        <activity android:name="com.test.learn.activity.playaudio.PlayVideoActivity" />
+        <activity android:name="com.test.learn.activity.playaudio.PlayAudioActivity" />
+        <activity android:name="com.test.learn.activity.choosepic.ChoosePicActivity" />
+        <activity android:name="com.test.learn.activity.sms.SmSMainActivity" />
+        <activity android:name="com.test.learn.activity.notification.NotivicationMainActivity" />
+        <activity android:name="com.test.learn.activity.contact.ContactMainActivity" />
+        <activity android:name="com.test.learn.activity.database.DatabaseMainActivity" />
+        <activity android:name="com.test.learn.activity.filepersistence.SharedPreferencesActivity" />
+        <activity android:name="com.test.learn.activity.filepersistence.FilePersistenceActivity" />
+        <activity android:name="com.test.learn.activity.login.LoginActivity" />
+        <activity android:name="com.test.learn.activity.broadcast.BroadcastMainActivity" />
+        <activity android:name="com.test.learn.activity.news.NewsListActivity" />
+        <activity android:name="com.test.learn.activity.news.NewsContentActivity" />
+        <activity android:name="com.test.learn.activity.chat.ChatActivity" />
+        <activity android:name="com.test.learn.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,12 +64,12 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".broadcastreceiver.startingup.BootCompleteReceiver">
+        <receiver android:name="com.test.learn.broadcastreceiver.startingup.BootCompleteReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".broadcastreceiver.standard.MyBroadcastReceiver">
+        <receiver android:name="com.test.learn.broadcastreceiver.standard.MyBroadcastReceiver">
 
             <!--
             可以看到，我们通过 android:priority 属性给广播接收器设置了优先级，优先级比较高的
@@ -80,26 +80,26 @@
                 <action android:name="com.example.learnandroid.broadcastreceiver.standard.MY_BROADCAST" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".broadcastreceiver.orderly.AnotherBroadcastReceiver">
+        <receiver android:name="com.test.learn.broadcastreceiver.orderly.AnotherBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.example.learnandroid.broadcastreceiver.standard.MY_BROADCAST" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".broadcastreceiver.standard.ForceOfflineReceiver">
+        <receiver android:name="com.test.learn.broadcastreceiver.standard.ForceOfflineReceiver">
             <intent-filter>
                 <action android:name="com.example.learnandroid.broadcastreceiver.standard.FORCE_OFFLINE" />
             </intent-filter>
         </receiver>
 
         <provider
-            android:name=".contentprovider.DatabaseProvider"
-            android:authorities="com.example.learnandroid.contentprovider" />
+            android:name="com.test.learn.contentprovider.DatabaseProvider"
+            android:authorities="com.test.learn.contentprovider" />
 
-        <service android:name=".service.MyService" />
-        <service android:name=".service.MyIntentService" />
-        <service android:name=".service.LongRunningService" />
+        <service android:name="com.test.learn.service.MyService" />
+        <service android:name="com.test.learn.service.MyIntentService" />
+        <service android:name="com.test.learn.service.LongRunningService" />
 
-        <receiver android:name=".activity.service.AlarmReceiver" /> <!-- 百度地图 -->
+        <receiver android:name="com.test.learn.activity.service.AlarmReceiver" /> <!-- 百度地图 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="BfHSi9Y0GCxkpLGf4Kbvtlna0WZe9IRB" /> <!-- 定位的service组件 -->
