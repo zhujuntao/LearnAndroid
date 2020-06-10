@@ -38,6 +38,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //提交修改
+        //设置监听事件
         setContentView(R.layout.activity_main);
         findViewById(R.id.tv_jump).setOnClickListener(new View.OnClickListener() {
             @Override
